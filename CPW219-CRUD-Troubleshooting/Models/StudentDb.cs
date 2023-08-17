@@ -28,19 +28,19 @@ namespace CPW219_CRUD_Troubleshooting.Models
             return p2;
         }
 
-        public static void Delete(SchoolContext context, Student p)
+        public static async Task Delete(SchoolContext context, Student p)
         {
             context.Students.Update(p);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public static void Update(SchoolContext context, Student p)
+        public static async Task Update(SchoolContext context, Student p)
         {
             //Mark the object as deleted
             context.Students.Remove(p);
 
             //Send delete query to database
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
