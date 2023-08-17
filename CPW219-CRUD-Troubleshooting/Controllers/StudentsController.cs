@@ -43,6 +43,11 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
             Student p = await StudentDb.GetStudent(context, id);
 
             //show it on web page
+            if (p == null)
+            {
+                return NotFound();
+            }
+
             return View(p);
         }
 
@@ -52,7 +57,7 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
             if (ModelState.IsValid)
             {
                 await StudentDb.Update(context, p);
-                ViewData["Message"] = "Product Updated!";
+                TempData["Message"] = "Product Updated!";
                 return RedirectToAction("Index");
             }
             //return view with errors
