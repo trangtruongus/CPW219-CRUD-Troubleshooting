@@ -4,12 +4,12 @@ namespace CPW219_CRUD_Troubleshooting.Models
 {
     public static class StudentDb
     {
-        public static Student Add(Student p, SchoolContext db)
+        public static async Task<Student> Add(Student p, SchoolContext db)
         {
             //Add student to context
             db.Students.Add(p);
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return p;
         }
 
@@ -19,18 +19,19 @@ namespace CPW219_CRUD_Troubleshooting.Models
                     select s).ToListAsync();
         }
 
-        public static Student GetStudent(SchoolContext context, int id)
+        public static async Task<Student> GetStudent(SchoolContext context, int id)
         {
-            Student p2 = context
+            Student p2 = await context
                             .Students
                             .Where(s => s.StudentId == id)
-                            .Single();
+                            .SingleAsync();
             return p2;
         }
 
         public static void Delete(SchoolContext context, Student p)
         {
             context.Students.Update(p);
+            context.SaveChanges();
         }
 
         public static void Update(SchoolContext context, Student p)
