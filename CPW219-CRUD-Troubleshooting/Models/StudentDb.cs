@@ -8,6 +8,8 @@ namespace CPW219_CRUD_Troubleshooting.Models
         {
             //Add student to context
             db.Students.Add(p);
+
+            db.SaveChanges();
             return p;
         }
 
